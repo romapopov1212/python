@@ -18,7 +18,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+          <a class="navbar-brand mr-4" href="/flaskblog/static">Flask Blog</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -29,8 +29,13 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+              {% else %}
               <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
               <a class="nav-item nav-link" href="{{ url_for('register') }}">Regist</a>
+              {%endif%}
             </div>
           </div>
         </div>
@@ -66,6 +71,12 @@
       </div>
     </main>
 
-
+<footer><h1>топ аниме по моему мнению</h1>
+<li><a href="https://animego.org/anime/mastera-mecha-onlayn-309">Мастера меча онлайн</a></li>
+<li><a href="https://animego.org/anime/provozhayuschaya-v-posledniy-put-friren-2430">Фрирен провожающая в последний путь</Ф></a></li>
+<li><a href="https://jut.su/naruuto/">Наруто отсобаки</a></li>
+<li><a href="https://animego.org/anime/sozdannyy-v-bezdne-163">Made in Abyss</a></li>
+<li><a href="https://animego.online/412-unesennye-prizrakami-e14.html">Унесенные призраками</a></li>
+</footer>
 </body>
 </html>
