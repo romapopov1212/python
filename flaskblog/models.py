@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
-from flaskblog import db, login_manager
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer #pip install itsdangerous==2.0.1
+from flaskblog import db, login_manager, app
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -12,6 +13,20 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+    
+    @staticmethod #говорим питону что в параметрах функции не будет self
+    def verify_reset_token(token):
+        s = Serializer(app.config["SECRET_KEY"])
+        try:
+            user_id = s.loads(token)['user_id']
+        
+        except:
+            return None
+        return User.query.get(user_id)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
