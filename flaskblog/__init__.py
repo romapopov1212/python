@@ -14,10 +14,10 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 #дальше код для отправки письма
-app.config['MAIL_SERVER'] = '_smtp.googlemail.com'
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
-app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+app.config['MAIL_USERNAME'] = 'popovrromma@gmail.com'
+app.config['MAIL_PASSWORD'] = 'gbtm jhzr uhfg hmkf'
 mail = Mail(app)
 from flaskblog import routs
